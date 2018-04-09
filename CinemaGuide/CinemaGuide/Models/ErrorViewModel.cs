@@ -1,5 +1,3 @@
-using System;
-
 namespace CinemaGuide.Models
 {
     public class ErrorViewModel
