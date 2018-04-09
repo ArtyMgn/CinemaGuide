@@ -2,23 +2,20 @@
 // More info at https://go.microsoft.com/fwlink/?LinkId=808241
 [
   {
-    "outputFileName": "wwwroot/css/site.min.css",
-    // An array of relative input file paths. Globbing patterns supported
+    "outputFileName": "wwwroot/index.min.css",
     "inputFiles": [
-      "wwwroot/css/site.css"
+      "wwwroot/common/**/*.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/index.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/common/**/*.js"
     ],
-    // Optionally specify minification options
     "minify": {
       "enabled": true,
       "renameLocals": true
     },
-    // Optionally generate .map file
     "sourceMap": false
   }
 ]

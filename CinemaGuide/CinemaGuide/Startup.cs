@@ -51,7 +51,7 @@ namespace CinemaGuide
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Home/Error");
             }
         
             app.UseStaticFiles();
@@ -60,7 +60,7 @@ namespace CinemaGuide
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/");
             });
         }
     }
