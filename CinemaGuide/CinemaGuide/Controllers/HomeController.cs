@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CinemaGuide.Models;
 using Microsoft.AspNetCore.Mvc;
-using CinemaGuide.Models;
 
 namespace CinemaGuide.Controllers
 {
@@ -12,26 +7,14 @@ namespace CinemaGuide.Controllers
     {
         public IActionResult Index()
         {
-            return View();
-        }
+            var defaultProfileInfo = new ProfileInfo();
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            return View(defaultProfileInfo);
         }
 
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }
