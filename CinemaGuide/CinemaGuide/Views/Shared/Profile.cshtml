@@ -1,0 +1,6 @@
+﻿@model Profile
+
+@Html.TextBoxFor(m => m.SearchConfig.Query, new { @class = "search__input" })
+@Html.HiddenFor(m => m.IsAuth)
+@Html.HiddenFor(m => m.SearchConfig.Language)
+@Html.HiddenFor(m => m.SearchConfig.AllowAdult)

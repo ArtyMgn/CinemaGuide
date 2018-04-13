@@ -1,20 +1,20 @@
-﻿using System;
+﻿using CinemaGuide.Api;
 
 namespace CinemaGuide.Models
 {
     public class Movie
     {
-        public string Title;
-        public string OriginalTitle;
-        public Uri PosterUrl;
-        public string Overview;
+        public IMovie Full        { get; }
+        public IMovieInfo Preview { get; }
 
-        public Movie(string originalTitle, string title, Uri posterUrl, string overview)
+        public Movie(IMovie full)
         {
-            Title = title;
-            OriginalTitle = originalTitle;
-            PosterUrl = posterUrl;
-            Overview = overview;
+            Full = full;
+        }
+
+        public Movie(IMovieInfo preview)
+        {
+            Preview = preview;
         }
     }
 }

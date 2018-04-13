@@ -5,11 +5,9 @@ namespace CinemaGuide.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index([FromServices] Profile profile)
         {
-            var defaultProfileInfo = new ProfileInfo();
-
-            return View(defaultProfileInfo);
+            return View(profile);
         }
 
         public IActionResult Error()
