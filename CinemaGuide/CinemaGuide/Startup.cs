@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using CinemaGuide.Api;
-using CinemaGuide.Models;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using CinemaGuide.Api;
+using CinemaGuide.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,37 +17,16 @@ namespace CinemaGuide
 
         public Startup(IHostingEnvironment hostingEnvironment)
         {
-            var settingsPath = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ?
-                "appsettings.Development.json" : "appsettings.json";
+            var settingsPath = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+                ? "appsettings.Development.json"
+                : "appsettings.json";
 
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(hostingEnvironment.ContentRootPath)
+            var builder = new ConfigurationBuilder().SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddEnvironmentVariables() // ?
                 .AddJsonFile("tokens.json", true, true)
-                .AddJsonFile(settingsPath, true, true);
+                .AddJsonFile(settingsPath,  true, true);
 
             Configuration = builder.Build();
-        }
-
-        public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc();
-
-            var containerBuilder = new ContainerBuilder();
-            containerBuilder.Populate(services);
-
-            var tokens = new Tokens();
-            var defaultProfile = new Profile();
-
-            Configuration.GetSection("Tokens").Bind(tokens);
-            Configuration.GetSection("DefaultProfile").Bind(defaultProfile);
-
-            RegisterProfile(containerBuilder, defaultProfile);
-            RegisterApi(containerBuilder, tokens);
-            
-            var container = containerBuilder.Build();
-
-            return new AutofacServiceProvider(container);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -61,13 +40,31 @@ namespace CinemaGuide
             {
                 app.UseExceptionHandler("Home/Error");
             }
-        
+
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/");
-            });
+            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/"); });
+        }
+
+        public IServiceProvider ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.Populate(services);
+
+            var tokens         = new Tokens();
+            var defaultProfile = new Profile();
+
+            Configuration.GetSection("Tokens").Bind(tokens);
+            Configuration.GetSection("DefaultProfile").Bind(defaultProfile);
+
+            RegisterProfile(containerBuilder, defaultProfile);
+            RegisterApi(containerBuilder, tokens);
+
+            var container = containerBuilder.Build();
+
+            return new AutofacServiceProvider(container);
         }
 
         private static void RegisterApi(ContainerBuilder containerBuilder, Tokens tokens)
@@ -79,7 +76,7 @@ namespace CinemaGuide
                 .ToList();
 
             var paramName = apiTypes[0]
-                .GetConstructor(new[] {typeof(string)})
+                .GetConstructor(new[] { typeof(string) })
                 .GetParameters()[0]
                 .Name;
 
@@ -94,7 +91,7 @@ namespace CinemaGuide
 
         private static void RegisterProfile(ContainerBuilder containerBuilder, Profile profile)
         {
-            var profileType = profile.GetType();
+            var profileType          = profile.GetType();
             var registrationsBuilder = containerBuilder.RegisterType(profileType);
 
             foreach (var property in profileType.GetProperties())

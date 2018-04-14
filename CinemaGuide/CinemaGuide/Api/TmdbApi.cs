@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMDbLib.Client;
 using TMDbLib.Objects.Search;
-using System.Collections.Generic;
 
 namespace CinemaGuide.Api
 {
@@ -32,11 +32,11 @@ namespace CinemaGuide.Api
 
         private struct MovieInfo : IMovieInfo
         {
-            public int Id                { get; }
-            public string Title          { get; }
-            public string OriginalTitle  { get; }
-            public Uri PosterUrl         { get; }
-            public DateTime? ReleaseDate { get; }
+            public int       Id            { get; }
+            public string    Title         { get; }
+            public string    OriginalTitle { get; }
+            public Uri       PosterUrl     { get; }
+            public DateTime? ReleaseDate   { get; }
 
             public MovieInfo(SearchMovie movie, TMDbClient client)
             {

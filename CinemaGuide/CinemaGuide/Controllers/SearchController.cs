@@ -1,9 +1,9 @@
-﻿using CinemaGuide.Api;
-using CinemaGuide.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using CinemaGuide.Api;
+using CinemaGuide.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaGuide.Controllers
 {
@@ -16,7 +16,7 @@ namespace CinemaGuide.Controllers
         {
             apiList = apiCollection.ToList();
         }
-        
+
         public async Task<IActionResult> Index(Profile profile)
         {
             var movies = new Dictionary<string, List<IMovieInfo>>();

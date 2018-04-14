@@ -4,7 +4,7 @@ namespace CinemaGuide.Models
 {
     public class Movie
     {
-        public IMovie Full        { get; }
+        public IMovie     Full    { get; }
         public IMovieInfo Preview { get; }
 
         public Movie(IMovie full)
