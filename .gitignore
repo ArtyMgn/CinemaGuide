@@ -289,3 +289,6 @@ __pycache__/
 
 # Self
 CinemaGuide/CinemaGuide/tokens.json
+Futura*.ttf
+Futura*.otf
+!Futura-Book.ttf

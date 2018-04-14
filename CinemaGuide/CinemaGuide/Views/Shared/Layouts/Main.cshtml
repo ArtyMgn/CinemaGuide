@@ -19,13 +19,15 @@
 
 <header class="menu">
     <h1 class="menu__title">CinemaGuide</h1>
+    
+    <div class="menu__actions">
+        @if (!Model.IsAuth)
+        {
+            <div class="menu__actions-login"><a class="menu__actions-login_link" href="/login">Регистрация</a></div>
+        }
 
-    @if (!Model.IsAuth)
-    {
-        <a class="menu__login" href="/login">Login</a>
-    }
-
-    <button class="menu__lang" type="button">@Model.SearchConfig.Language.ToUpper()</button>
+        <button class="menu__actions-lang" type="button">Язык</button>
+    </div>
 </header>
 
 @RenderBody()
