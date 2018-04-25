@@ -35,10 +35,15 @@ namespace CinemaGuide
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    OnPrepareResponse = c => c.Context.Response.Headers["Cache-Control"] = "public,max-age=1"
+                });
             }
             else
             {
                 app.UseExceptionHandler("Home/Error");
+                app.UseStaticFiles();
             }
 
             app.UseStaticFiles();
