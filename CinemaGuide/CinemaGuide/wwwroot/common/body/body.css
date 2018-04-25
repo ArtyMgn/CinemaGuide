@@ -1,4 +1,12 @@
-﻿body {
-    font-family: Helvetica Hue, Helvetica, Arial, sans-serif;
+﻿@font-face {
+    font-family: Futura;
+    src: url('../../fonts/Futura/Futura-Book-Cyrillic.otf');
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    font-family: Futura, Arial, sans-serif;
     font-size: 10px;
+    margin: 0;
 }

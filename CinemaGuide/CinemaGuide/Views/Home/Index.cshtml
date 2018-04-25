@@ -1,16 +1,19 @@
 ﻿@model Profile
 
-<main>
+<div class="page-home">
     <div class="shot">
-        <img href="http://static1.squarespace.com/static/58ed266cebbd1a18bd14998d/58ed3d0d59cc68f4b61d75ca/58f690582994ca1365b6836a/1493672991065/neo_thumbnail.jpg?format=1000w"
-             alt="shot"/>
+        <picture>
+            <source srcset="~/images/neo.webp" type="image/webp"/>
+            <source srcset="~/images/neo.jpg" type="image/jpeg"/>
+            <img class="shot__img" src="~/images/neo.jpg" alt="shot"/>
+        </picture>
     </div>
 
-    <div class="search">
-        @using (Html.BeginForm("Index", "Search", FormMethod.Post))
-        {
-            @Html.Partial("Profile")
-            <button class="search__button" type="submit">Найти</button>
-        }
-    </div>
-</main>
+    <div class="camera"></div>
+
+    @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "search"}))
+    {
+        @Html.Partial("Profile")
+        <button class="search__button button-default" type="submit"></button>
+    }
+</div>
