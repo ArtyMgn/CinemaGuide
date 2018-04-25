@@ -1,0 +1,40 @@
+﻿@model Profile
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="@Model.SearchConfig.Language"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CinemaGuide</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/index.css"/>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/index.min.css" asp-append-version="true"/>
+    </environment>
+</head>
+<body>
+
+<header class="menu">
+    <h1 class="menu__title">CinemaGuide</h1>
+
+    @if (!Model.IsAuth)
+    {
+        <a class="menu__login" href="/login">Login</a>
+    }
+
+    <button class="menu__lang" type="button">@Model.SearchConfig.Language.ToUpper()</button>
+</header>
+
+@RenderBody()
+
+<footer class="info">
+    <div class="info__contacts">Контакты</div>
+    <div class="info__creators">Артем Рыжкин<span class="info__creators-separator">&bull;</span>Александр Сатов</div>
+    <div class="info__year">2018</div>
+</footer>
+
+</body>
+</html>

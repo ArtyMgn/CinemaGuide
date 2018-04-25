@@ -1,15 +1,16 @@
-﻿<main>
+﻿@model Profile
+
+<main>
     <div class="shot">
         <img href="http://static1.squarespace.com/static/58ed266cebbd1a18bd14998d/58ed3d0d59cc68f4b61d75ca/58f690582994ca1365b6836a/1493672991065/neo_thumbnail.jpg?format=1000w"
-             alt="shot" />
+             alt="shot"/>
     </div>
 
-    @using (Html.BeginForm("Search", "Movies", FormMethod.Get))
-    {
-        <div class="search">
-            <input class="search__input" type="text" name="query" />
+    <div class="search">
+        @using (Html.BeginForm("Index", "Search", FormMethod.Post))
+        {
+            @Html.Partial("Profile")
             <button class="search__button" type="submit">Найти</button>
-        </div>
-    }
-
+        }
+    </div>
 </main>
