@@ -1,0 +1,30 @@
+﻿@import '/common/body/body.css';
+
+@import '/common/button/button-default.css';
+
+@import '/common/camera/camera.css';
+
+@import '/common/footer/footer.css';
+@import '/common/footer/__creators/footer__creators.css';
+@import '/common/footer/__creators/footer__creators_separator.css';
+@import '/common/footer/footer__contacts.css';
+@import '/common/footer/footer__year.css';
+
+@import '/common/link/link_header.css';
+@import '/common/link/link_footer.css';
+
+@import '/common/main/main.css';
+
+@import '/common/menu/menu.css';
+@import '/common/menu/menu__title.css';
+@import '/common/menu/menu__lang.css';
+@import '/common/menu/menu__login.css';
+
+@import '/common/page/page-home.css';
+
+@import '/common/search/search.css';
+@import '/common/search/search__input.css';
+@import '/common/search/search__button.css';
+
+@import '/common/shot/shot.css';
+@import '/common/shot/shot__img.css';

@@ -1,0 +1,13 @@
+﻿.search {
+    width: 80%;
+    height: 40px;
+    margin-top: 33px;
+    margin-left: -84px;
+    font-size: 1.8em;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    vertical-align: top;
+    border: 2px solid dodgerblue;
+}

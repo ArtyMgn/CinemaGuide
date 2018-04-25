@@ -1,0 +1,9 @@
+﻿.menu__lang {
+    display: inline-block;
+    font: normal 1.8em Futura, Arial, sans-serif;
+    color: rgba(255,255,255,0.75);
+}
+
+.menu__lang:hover {
+    color: white;
+}

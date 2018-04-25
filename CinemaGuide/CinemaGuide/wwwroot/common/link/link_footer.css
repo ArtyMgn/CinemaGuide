@@ -1,0 +1,12 @@
+﻿.link_footer {
+    color: #586069;
+    text-decoration: none;
+}
+
+.link_footer:visited {
+    color: #586069;
+}
+
+.link_footer:hover {
+    text-decoration: underline;
+}

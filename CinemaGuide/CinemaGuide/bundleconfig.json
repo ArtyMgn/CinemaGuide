@@ -2,13 +2,13 @@
 // More info at https://go.microsoft.com/fwlink/?LinkId=808241
 [
   {
-    "outputFileName": "wwwroot/index.min.css",
+    "outputFileName": "wwwroot/index.common.min.css",
     "inputFiles": [
       "wwwroot/common/**/*.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/index.min.js",
+    "outputFileName": "wwwroot/index.common.min.js",
     "inputFiles": [
       "wwwroot/common/**/*.js"
     ],

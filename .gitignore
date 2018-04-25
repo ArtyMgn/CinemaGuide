@@ -287,8 +287,5 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-# Self
+# Security
 CinemaGuide/CinemaGuide/tokens.json
-Futura*.ttf
-Futura*.otf
-!Futura-Book.ttf
