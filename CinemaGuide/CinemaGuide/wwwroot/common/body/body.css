@@ -9,4 +9,6 @@ body {
     font-family: Futura, Arial, sans-serif;
     font-size: 10px;
     margin: 0;
+    display: flex;
+    flex-direction: column;
 }

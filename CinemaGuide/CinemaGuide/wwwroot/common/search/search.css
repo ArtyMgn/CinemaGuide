@@ -2,7 +2,7 @@
     width: 80%;
     height: 40px;
     margin-top: 33px;
-    margin-left: -84px;
+    margin-left: -94px;
     font-size: 1.8em;
     display: inline-flex;
     flex-wrap: nowrap;
@@ -10,4 +10,8 @@
     align-items: center;
     vertical-align: top;
     border: 2px solid dodgerblue;
+}
+
+.search:hover {
+    box-shadow: 0 0 14px -1px rgba(0, 0, 0, 0.3);
 }
