@@ -1,7 +1,12 @@
 ﻿.search__input {
-    width: 80%;
-    margin: 8px;
+    height: 90%;
+    padding-left: 10px;
     font: normal 1em Futura, Arial, sans-serif;
+    flex-grow: 2;
     border: 0;
     outline: none;
+}
+
+.search__input::placeholder {
+    color: rgba(0, 0, 0, .3);
 }
