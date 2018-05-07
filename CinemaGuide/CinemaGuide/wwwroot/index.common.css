@@ -13,6 +13,8 @@
 @import '/common/link/link_header.css';
 @import '/common/link/link_footer.css';
 
+@import '/common/loader/loader.css';
+
 @import '/common/main/main.css';
 
 @import '/common/menu/menu.css';
@@ -21,10 +23,12 @@
 @import '/common/menu/menu__login.css';
 
 @import '/common/page/page-home.css';
+@import '/common/page/page-search/page-search.css';
 
 @import '/common/search/search.css';
 @import '/common/search/search__input.css';
 @import '/common/search/search__button.css';
+@import '/common/search/search-list.css';
 
 @import '/common/shot/shot.css';
 @import '/common/shot/shot__img.css';

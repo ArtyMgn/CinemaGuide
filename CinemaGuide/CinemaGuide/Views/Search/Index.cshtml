@@ -1,0 +1,17 @@
+﻿@model Profile
+@using Newtonsoft.Json
+
+<div class="page-search">
+    <div class="search">
+        @Html.Partial("SearchConfig")
+        <button class="search__button button-default" type="button"
+                onclick="const query = document.querySelector('.search__input').value; search(query);"></button>
+    </div>
+    <div class="search-list"></div>
+</div>
+
+<script>
+    const searchConfigJson = '@Html.Raw(JsonConvert.SerializeObject(Model.SearchConfig))';
+    SEARCH_CONFIG = JSON.parse(searchConfigJson);
+    search(SEARCH_CONFIG.Query);
+</script>
