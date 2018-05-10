@@ -22,13 +22,28 @@
 @import '/common/menu/menu__lang.css';
 @import '/common/menu/menu__login.css';
 
+@import '/common/no-result/no-result.css';
+
 @import '/common/page/page-home.css';
 @import '/common/page/page-search/page-search.css';
 
+@import '/common/search/search-item/__info/search-item__info.css';
+@import '/common/search/search-item/__info/search-item__info_attr.css';
+@import '/common/search/search-item/__info/search-item__info_value.css';
+@import '/common/search/search-item/__info/search-item__info-default.css';
+@import '/common/search/search-item/__poster/search-item__poster.css';
+@import '/common/search/search-item/__poster/search-item__poster_image.css';
+@import '/common/search/search-item/search-item.css';
+@import '/common/search/search-item/search-item__title.css';
 @import '/common/search/search.css';
-@import '/common/search/search__input.css';
 @import '/common/search/search__button.css';
+@import '/common/search/search__input.css';
 @import '/common/search/search-list.css';
+@import '/common/search/search-result.css';
 
 @import '/common/shot/shot.css';
 @import '/common/shot/shot__img.css';
+
+@import '/common/switcher/__item/switcher__item.css';
+@import '/common/switcher/switcher.css';
+@import '/common/switcher/switcher__radio.css';

@@ -25,12 +25,12 @@ namespace CinemaGuide.Controllers
             {
                 var foundMovies = await api.SearchAsync(searchConfig);
 
-                if (!foundMovies.Any()) continue;
+                if (foundMovies.Count == 0) continue;
 
-                movies.Add(api.Name, foundMovies);
+                movies[api.Name] = foundMovies;
             }
 
-            return new JsonResult(movies);
+            return View(movies);
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿.switcher__item {
+    display: inline-block;
+    min-width: 9em;
+    text-align: center;
+    padding: 5px;
+    font-size: 1.4em;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-left-width: 0;
+    border-bottom-width: 0;
+}
+
+.switcher__item:first-of-type {
+    border-left-width: 1px;
+    border-top-left-radius: 8px;
+}
+
+.switcher__item:last-of-type {
+    border-top-right-radius: 8px;
+}
