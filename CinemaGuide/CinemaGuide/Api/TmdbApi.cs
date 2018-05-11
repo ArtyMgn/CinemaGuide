@@ -32,7 +32,7 @@ namespace CinemaGuide.Api
 
         private struct MovieInfo : IMovieInfo
         {
-            public int       Id            { get; }
+            public string    Id            { get; }
             public string    Title         { get; }
             public string    OriginalTitle { get; }
             public Uri       PosterUrl     { get; }
@@ -42,7 +42,7 @@ namespace CinemaGuide.Api
             {
                 client.GetConfig();
 
-                Id            = movie.Id;
+                Id            = movie.Id.ToString();
                 Title         = movie.Title;
                 OriginalTitle = movie.OriginalTitle;
                 PosterUrl     = client.GetImageUrl("original", movie.PosterPath);
