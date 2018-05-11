@@ -3,17 +3,17 @@
 <div class="page-home">
     <div class="shot">
         <picture>
-            <source srcset="~/images/neo.webp" type="image/webp"/>
-            <source srcset="~/images/neo.jpg" type="image/jpeg"/>
-            <img class="shot__img" src="~/images/neo.jpg" alt="shot"/>
+            <source srcset="~/images/neo.webp" type="image/webp" />
+            <source srcset="~/images/neo.jpg" type="image/jpeg" />
+            <img class="shot__img" src="~/images/neo.jpg" alt="shot" />
         </picture>
     </div>
 
     <div class="camera"></div>
 
-    @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "search"}))
+    @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "search" }))
     {
-        @Html.Partial("SearchConfig")
+        @Html.Partial("SearchQuery")
         <button class="search__button button-default" type="submit"></button>
     }
 </div>

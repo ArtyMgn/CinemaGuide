@@ -1,19 +1,15 @@
 ﻿const BASE_URL = 'http://localhost:9201/';
-let SEARCH_CONFIG = undefined;
 
-function setFirstSource() {
-    const switchRadio = document.querySelector('.switcher__radio');
-    switchRadio.checked = true;
-    switchSource(switchRadio.id);
-}
+async function search(searchConfig, sourceList) {
+    const url = new URL(`${BASE_URL}partial/search`);
 
-async function search(query) {
-    const result        = document.querySelector('.search-result');
-    result.innerHTML    = '<div class="loader"></div>';
-    const url           = new URL(`${BASE_URL}partial/search`);
-    SEARCH_CONFIG.Query = query;
-    url.search          = new URLSearchParams(SEARCH_CONFIG);
-    const resultHTML    = await fetch(url).then(res => res.text());
-    result.innerHTML = resultHTML;
-    setFirstSource();
+    searchConfig.Query = document.querySelector('.search__input').value;
+
+    for (let sourceName of sourceList) {
+        const searchList = document.querySelector(`.search-list[source=${sourceName}]`);
+        searchList.innerHTML = '<div class="loader"></div>';
+        url.search = new URLSearchParams({ ...searchConfig, sourceName });
+        const resultHtml = await fetch(url).then(res => res.text());
+        searchList.innerHTML = resultHtml;
+    }
 }

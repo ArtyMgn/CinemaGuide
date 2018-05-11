@@ -1,55 +1,41 @@
-﻿@using CinemaGuide.Api
-@model Dictionary<string, List<IMovieInfo>>
+﻿@model List<CinemaGuide.Api.IMovieInfo>
 
 @{
     Layout = null;
 }
 
-@if (Model.Keys.Count == 0)
+@if (Model.Count == 0)
 {
     <div class="no-result">По вашему запросу ничего не найдено.</div>
 }
 else
 {
-    <div class="switcher">
-        @foreach (var key in Model.Keys)
-        {
-            <input class="switcher__radio" type="radio" id="@key"/>
-            <label class="switcher__item" for="@key" onclick="switchSource('@key');">@key</label>
-        }
-    </div>
-
-    foreach (var key in Model.Keys)
+    foreach (var movie in Model)
     {
-        <div class="search-list" source="@key">
-            @foreach (var movieInfo in Model[key])
-            {
-                <div class="search-item">
-                    <div class="search-item__poster">
-                        <img class="search-item__poster_image" src="@Html.Raw(movieInfo.PosterUrl.AbsoluteUri)" alt="poster"/>
-                    </div>
-                    <div class="search-item__title">@movieInfo.Title</div>
-                    <div class="search-item__info">
-                        <div class="search-item__info-default">
-                            <span class="search-item__info_attr">Ориг. название:</span>
-                            <span class="search-item__info_value">@movieInfo.OriginalTitle</span>
-                        </div>
-                        <div class="search-item__info-default">
-                            <span class="search-item__info_attr">Дата выхода:</span>
-                            <span class="search-item__info_value">
-                                @if (movieInfo.ReleaseDate.HasValue)
-                                {
-                                    @movieInfo.ReleaseDate.Value.ToString("dd.MM.yyyy");
-                                }
-                                else
-                                {
-                                    @Html.Raw("Неизвестна");
-                                }
-                            </span>
-                        </div>
-                    </div>
+        <div class="search-item">
+            <div class="search-item__poster">
+                <img class="search-item__poster_image" src="@Html.Raw(movie.PosterUrl.AbsoluteUri)" alt="poster"/>
+            </div>
+            <div class="search-item__title">@movie.Title</div>
+            <div class="search-item__info">
+                <div class="search-item__info-default">
+                    <span class="search-item__info_attr">Ориг. название:</span>
+                    <span class="search-item__info_value">@movie.OriginalTitle</span>
                 </div>
-            }
+                <div class="search-item__info-default">
+                    <span class="search-item__info_attr">Дата выхода:</span>
+                    <span class="search-item__info_value">
+                        @if (movie.ReleaseDate.HasValue)
+                        {
+                            @movie.ReleaseDate.Value.ToString("dd.MM.yyyy")
+                        }
+                        else
+                        {
+                            @Html.Raw("Неизвестна")
+                        }
+                    </span>
+                </div>
+            </div>
         </div>
     }
 }

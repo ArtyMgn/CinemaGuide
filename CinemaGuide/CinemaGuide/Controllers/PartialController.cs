@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CinemaGuide.Api;
@@ -9,26 +10,24 @@ namespace CinemaGuide.Controllers
     [Route("partial")]
     public class PartialController : Controller
     {
-        private readonly List<ICinemaApi> apiList;
+        private readonly Dictionary<string, ICinemaApi> sources;
 
-        public PartialController(IEnumerable<ICinemaApi> apiCollection)
+        public PartialController(IEnumerable<ICinemaApi> api)
         {
-            apiList = apiCollection.ToList();
+            sources = api.ToDictionary(a => a.GetType().Name);
         }
 
         [Route("search")]
-        public async Task<IActionResult> Search(SearchConfig searchConfig)
+        public async Task<IActionResult> Search(SearchConfig searchConfig, string sourceName)
         {
-            var movies = new Dictionary<string, List<IMovieInfo>>();
-
-            foreach (var api in apiList)
+            if (!sources.ContainsKey(sourceName))
             {
-                var foundMovies = await api.SearchAsync(searchConfig);
-
-                if (foundMovies.Count == 0) continue;
-
-                movies[api.Name] = foundMovies;
+                Console.WriteLine($"Server haven't source with name '{sourceName}'"); // Need to log this
+                return View(new List<IMovieInfo>());
             }
+
+            var source = sources[sourceName];
+            var movies = await source.SearchAsync(searchConfig);
 
             return View(movies);
         }

@@ -5,8 +5,6 @@ namespace CinemaGuide.Api
 {
     public interface ICinemaApi
     {
-        string Name { get; }
-
         Task<List<IMovieInfo>> SearchAsync(SearchConfig config);
     }
 }

@@ -1,4 +1,6 @@
-﻿using CinemaGuide.Api;
+﻿using System;
+using System.Collections.Generic;
+using CinemaGuide.Api;
 
 namespace CinemaGuide.Models
 {
@@ -6,5 +8,6 @@ namespace CinemaGuide.Models
     {
         public bool         IsAuth       { get; set; }
         public SearchConfig SearchConfig { get; set; }
+        public List<Type>   SourceList   { get; set; }
     }
 }
