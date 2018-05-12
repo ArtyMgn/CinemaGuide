@@ -1,0 +1,45 @@
+﻿@using System.Reflection
+@using CinemaGuide.Api
+@using Newtonsoft.Json
+@model Profile
+
+<script>
+    const SOURCE_LIST = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.SourceList.Select(s => s.Name)))');
+    const SEARCH_CONFIG = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.SearchConfig))');
+</script>
+
+<div class="page-search">
+    <div class="search">
+        @Html.Partial("SearchQuery")
+        <button class="search__button button-default" type="button"
+                onclick="search(SEARCH_CONFIG, SOURCE_LIST)">
+        </button>
+    </div>
+    <div class="search-result">
+        <div class="switcher">
+            @for (var i = 0; i < Model.SourceList.Count; i++)
+            {
+                var source = Model.SourceList[i].Name;
+                var sourceName = Model.SourceList[i].GetCustomAttribute<NameAttribute>().Name;
+                if (i == 0)
+                {
+                    <input class="switcher__radio" type="radio" name="switch" id="@source" checked/>
+                }
+                else
+                {
+                    <input class="switcher__radio" type="radio" name="switch" id="@source"/>
+                }
+                <label class="switcher__item" for="@source" onclick="switchSource('@source');">@sourceName</label>
+            }
+        </div>
+        @foreach (var source in Model.SourceList)
+        {
+            <div class="search-list" source="@source.Name"></div>
+        }
+    </div>
+</div>
+
+<script>
+    search(SEARCH_CONFIG, SOURCE_LIST);
+    switchSource('@Model.SourceList[0].Name');
+</script>

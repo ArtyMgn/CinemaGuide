@@ -13,7 +13,7 @@
       "wwwroot/common/**/*.js"
     ],
     "minify": {
-      "enabled": true,
+      "enabled": false,  // TODO: check why isn't working
       "renameLocals": true
     },
     "sourceMap": false

@@ -1,0 +1,7 @@
+﻿.switcher__radio {
+    display: none;
+}
+
+.switcher__radio:checked + .switcher__item {
+    background-color: dodgerblue;
+}

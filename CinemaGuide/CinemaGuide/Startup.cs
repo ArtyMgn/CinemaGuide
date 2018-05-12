@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -22,7 +23,7 @@ namespace CinemaGuide
                 : "appsettings.json";
 
             var builder = new ConfigurationBuilder().SetBasePath(hostingEnvironment.ContentRootPath)
-                .AddEnvironmentVariables() // ?
+                .AddEnvironmentVariables()
                 .AddJsonFile("tokens.json", true, true)
                 .AddJsonFile(settingsPath,  true, true);
 
@@ -42,7 +43,7 @@ namespace CinemaGuide
             }
             else
             {
-                app.UseExceptionHandler("Home/Error");
+                app.UseExceptionHandler("/error");
                 app.UseStaticFiles();
             }
 
@@ -58,21 +59,15 @@ namespace CinemaGuide
             var containerBuilder = new ContainerBuilder();
             containerBuilder.Populate(services);
 
-            var tokens         = new Tokens();
-            var defaultProfile = new Profile();
-
-            Configuration.GetSection("Tokens").Bind(tokens);
-            Configuration.GetSection("DefaultProfile").Bind(defaultProfile);
-
-            RegisterProfile(containerBuilder, defaultProfile);
-            RegisterApi(containerBuilder, tokens);
+            var apiTypes = RegisterApi(containerBuilder);
+            RegisterDefaultProfile(containerBuilder, apiTypes);
 
             var container = containerBuilder.Build();
 
             return new AutofacServiceProvider(container);
         }
 
-        private static void RegisterApi(ContainerBuilder containerBuilder, Tokens tokens)
+        private List<Type> RegisterApi(ContainerBuilder containerBuilder)
         {
             var apiType = typeof(ICinemaApi);
 
@@ -85,19 +80,29 @@ namespace CinemaGuide
                 .GetParameters()[0]
                 .Name;
 
+            var tokens = new Dictionary<string, string>();
+
+            Configuration.GetSection("Tokens").Bind(tokens);
+
             foreach (var type in apiTypes)
             {
                 containerBuilder
                     .RegisterType(type)
-                    .WithParameter(paramName, tokens.GetType().GetProperty(type.Name).GetValue(tokens))
-                    .As(apiType);
+                    .WithParameter(paramName, tokens[type.Name])
+                    .As(apiType)
+                    .SingleInstance();
             }
+
+            return apiTypes;
         }
 
-        private static void RegisterProfile(ContainerBuilder containerBuilder, Profile profile)
+        private void RegisterDefaultProfile(ContainerBuilder containerBuilder, List<Type> apiTypes)
         {
+            var profile              = new Profile { SourceList = apiTypes };
             var profileType          = profile.GetType();
             var registrationsBuilder = containerBuilder.RegisterType(profileType);
+
+            Configuration.GetSection("DefaultProfile").Bind(profile);
 
             foreach (var property in profileType.GetProperties())
             {

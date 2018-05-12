@@ -1,0 +1,5 @@
+﻿.search-item__info {
+    grid-area: i;
+    font-size: 1.5em;
+    margin-top: 30px;
+}
