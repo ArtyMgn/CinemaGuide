@@ -23,15 +23,15 @@ else
                     <span class="search-item__info_value">@movie.OriginalTitle</span>
                 </div>
                 <div class="search-item__info-default">
-                    <span class="search-item__info_attr">Дата выхода:</span>
+                    <span class="search-item__info_attr">Год:</span>
                     <span class="search-item__info_value">
-                        @if (movie.ReleaseDate.HasValue)
+                        @if (movie.Year.HasValue)
                         {
-                            @movie.ReleaseDate.Value.ToString("dd.MM.yyyy")
+                            @movie.Year.Value
                         }
                         else
                         {
-                            @Html.Raw("Неизвестна")
+                            @Html.Raw("Отсутствует")
                         }
                     </span>
                 </div>

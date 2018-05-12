@@ -21,7 +21,8 @@ namespace CinemaGuide.Api
         {
             client.DefaultLanguage = config.Language; // TODO: make thread safe
 
-            var searchContainer = await client.SearchMovieAsync(config.Query, includeAdult: config.AllowAdult);
+            var searchContainer = await client.SearchMovieAsync(config.Query,
+                includeAdult: config.AllowAdult);
 
             return searchContainer.Results
                 .Select(m => new MovieInfo(m, client))
@@ -36,7 +37,9 @@ namespace CinemaGuide.Api
             public string    OriginalTitle { get; }
             public Uri       PosterUrl     { get; }
             public DateTime? ReleaseDate   { get; }
+
             public int? Year => ReleaseDate?.Year;
+
             public MovieInfo(SearchMovie movie, TMDbClient client)
             {
                 client.GetConfig();

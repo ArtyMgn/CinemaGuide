@@ -1,11 +1,11 @@
 ﻿.switcher__item {
-    display: inline-block;
     min-width: 9em;
     text-align: center;
     padding: 5px;
     font-size: 1.6em;
     font-weight: bold;
     cursor: pointer;
+    box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, .3);
     border-left-width: 0;
     border-bottom-width: 0;

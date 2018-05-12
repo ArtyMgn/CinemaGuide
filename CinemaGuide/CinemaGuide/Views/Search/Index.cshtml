@@ -23,11 +23,11 @@
                 var sourceName = Model.SourceList[i].GetCustomAttribute<NameAttribute>().Name;
                 if (i == 0)
                 {
-                    <input class="switcher__radio" type="radio" id="@source" checked/>
+                    <input class="switcher__radio" type="radio" name="switch" id="@source" checked/>
                 }
                 else
                 {
-                    <input class="switcher__radio" type="radio" id="@source"/>
+                    <input class="switcher__radio" type="radio" name="switch" id="@source"/>
                 }
                 <label class="switcher__item" for="@source" onclick="switchSource('@source');">@sourceName</label>
             }
@@ -41,4 +41,5 @@
 
 <script>
     search(SEARCH_CONFIG, SOURCE_LIST);
+    switchSource('@Model.SourceList[0].Name');
 </script>

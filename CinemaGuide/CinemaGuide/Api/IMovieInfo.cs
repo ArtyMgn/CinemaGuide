@@ -7,8 +7,8 @@ namespace CinemaGuide.Api
         string    Id            { get; }
         string    Title         { get; }
         string    OriginalTitle { get; }
+        int?      Year          { get; }
         Uri       PosterUrl     { get; }
         DateTime? ReleaseDate   { get; }
-        int?       Year         { get; }
     }
 }
