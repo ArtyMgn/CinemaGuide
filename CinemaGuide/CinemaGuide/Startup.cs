@@ -43,7 +43,7 @@ namespace CinemaGuide
             }
             else
             {
-                app.UseExceptionHandler("Home/Error");
+                app.UseExceptionHandler("/error");
                 app.UseStaticFiles();
             }
 

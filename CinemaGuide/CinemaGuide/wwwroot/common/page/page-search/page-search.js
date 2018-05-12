@@ -1,4 +1,4 @@
-﻿const BASE_URL = 'http://localhost:9201/';
+﻿const BASE_URL = 'http://localhost/';
 
 async function search(searchConfig, sourceList) {
     const url = new URL(`${BASE_URL}partial/search`);
