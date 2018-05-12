@@ -9,5 +9,6 @@ namespace CinemaGuide.Api
         string    OriginalTitle { get; }
         Uri       PosterUrl     { get; }
         DateTime? ReleaseDate   { get; }
+        int?       Year         { get; }
     }
 }

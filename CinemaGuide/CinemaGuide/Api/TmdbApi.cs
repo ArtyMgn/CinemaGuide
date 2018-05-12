@@ -37,7 +37,7 @@ namespace CinemaGuide.Api
             public string    OriginalTitle { get; }
             public Uri       PosterUrl     { get; }
             public DateTime? ReleaseDate   { get; }
-
+            public int? Year => ReleaseDate?.Year;
             public MovieInfo(SearchMovie movie, TMDbClient client)
             {
                 client.GetConfig();

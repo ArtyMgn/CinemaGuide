@@ -54,10 +54,10 @@ namespace CinemaGuide.Api
             [JsonProperty("Poster")]
             public Uri       PosterUrl     { get; set; }
 
-            public int Year { get; set; }
+            public int? Year { get; set; }
 
             [JsonIgnore]
-            public DateTime? ReleaseDate => new DateTime(Year, 1, 1);
+            public DateTime? ReleaseDate { get; }
         }
     }
 }
