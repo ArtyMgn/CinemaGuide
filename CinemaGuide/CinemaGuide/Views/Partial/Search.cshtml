@@ -1,0 +1,41 @@
+﻿@model List<CinemaGuide.Api.IMovieInfo>
+
+@{
+    Layout = null;
+}
+
+@if (Model.Count == 0)
+{
+    <div class="no-result">По вашему запросу ничего не найдено.</div>
+}
+else
+{
+    foreach (var movie in Model)
+    {
+        <div class="search-item">
+            <div class="search-item__poster">
+                <img class="search-item__poster_image" src="@Html.Raw(movie.PosterUrl.AbsoluteUri)" alt="poster"/>
+            </div>
+            <div class="search-item__title">@movie.Title</div>
+            <div class="search-item__info">
+                <div class="search-item__info-default">
+                    <span class="search-item__info_attr">Ориг. название:</span>
+                    <span class="search-item__info_value">@movie.OriginalTitle</span>
+                </div>
+                <div class="search-item__info-default">
+                    <span class="search-item__info_attr">Год:</span>
+                    <span class="search-item__info_value">
+                        @if (movie.Year.HasValue)
+                        {
+                            @movie.Year.Value
+                        }
+                        else
+                        {
+                            @Html.Raw("Отсутствует")
+                        }
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -9,30 +9,29 @@ using Newtonsoft.Json.Linq;
 
 namespace CinemaGuide.Api
 {
-    public class OmdbApi: ICinemaApi
+    [Name("OMDb")]
+    public class Omdb : ICinemaApi
     {
-        public string Name => "OMDb";
-        
-        private readonly string token;
-        private const string BASE_URL = "http://www.omdbapi.com";
+        public const string BaseUrl = "http://www.omdbapi.com";
+
+        private readonly string     token;
         private readonly HttpClient client;
 
-        public OmdbApi(string token)
+        public Omdb(string token)
         {
-            this.token = token;
-            client = new HttpClient();
+            this.token  = token;
+            client      = new HttpClient();
         }
-        
+
         public async Task<List<IMovieInfo>> SearchAsync(SearchConfig config)
         {
             var queryString = new QueryString()
                 .Add("apikey", token)
-                .Add("s", config.Query)
-                .Add("type", "movie");
-            
-            var requestUri = new Uri($"{BASE_URL}{queryString.ToUriComponent()}");
-            
-            var response = await client.GetAsync(requestUri);
+                .Add("s",      config.Query)
+                .Add("type",   "movie");
+
+            var requestUri  = new Uri($"{BaseUrl}{queryString.ToUriComponent()}");
+            var response    = await client.GetAsync(requestUri);
             var jsonContent = await response.Content.ReadAsStringAsync();
 
             return JObject.Parse(jsonContent)["Search"]
@@ -45,19 +44,20 @@ namespace CinemaGuide.Api
         private struct MovieInfo : IMovieInfo
         {
             [JsonProperty("imdbID")]
-            public string    Id            { get; set; }
-            public string    Title         { get; set; }
+            public string Id { get; set; }
+
+            public string Title { get; set; }
 
             [JsonIgnore]
-            public string    OriginalTitle { get; set; }
-     
+            public string OriginalTitle => Title;
+
+            public int?   Year  { get; set; }
+
             [JsonProperty("Poster")]
-            public Uri       PosterUrl     { get; set; }
-
-            public int? Year { get; set; }
+            public Uri PosterUrl { get; set; }
 
             [JsonIgnore]
-            public DateTime? ReleaseDate { get; }
+            public DateTime? ReleaseDate { get; set; }
         }
     }
 }

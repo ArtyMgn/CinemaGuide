@@ -10,20 +10,27 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="/index.common.css"/>
+        <script async src="/common/page/page-search/page-search.js"></script>
+        <script async src="/common/switcher/__item/switcher__item.js"></script>
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="/index.common.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="/index.common.min.css"/>
+        <script async src="/index.common.min.js"></script>
     </environment>
 </head>
 <body>
 
 <header class="menu">
-    <h1 class="menu__title"><a class="link_header" href="/">CinemaGuide</a></h1>
-    
+    <h1 class="menu__title">
+        <a class="link_header" href="/">CinemaGuide</a>
+    </h1>
+
     <div class="menu__actions">
         @if (!Model.IsAuth)
         {
-            <div class="menu__login"><a class="link_header" href="/login">Регистрация</a></div>
+            <div class="menu__login">
+                <a class="link_header" href="/login">Регистрация</a>
+            </div>
         }
 
         <button class="menu__lang button-default" type="button">Язык</button>
@@ -35,7 +42,9 @@
 </main>
 
 <footer class="footer">
-    <div class="footer__contacts"><a class="link_footer" href="/contacts">Контакты</a></div>
+    <div class="footer__contacts">
+        <a class="link_footer" href="/contacts">Контакты</a>
+    </div>
     <div class="footer__creators">Артем Рыжкин<span class="footer__creators_separator">🎬</span>Александр Сатов</div>
     <div class="footer__year">2018</div>
 </footer>

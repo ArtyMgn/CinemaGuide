@@ -7,22 +7,22 @@ using TMDbLib.Objects.Search;
 
 namespace CinemaGuide.Api
 {
-    public class TmdbApi : ICinemaApi
+    [Name("TMDb")]
+    public class Tmdb : ICinemaApi
     {
-        public string Name => "TMDb";
-
         private readonly TMDbClient client;
 
-        public TmdbApi(string token)
+        public Tmdb(string token)
         {
             client = new TMDbClient(token);
         }
 
         public async Task<List<IMovieInfo>> SearchAsync(SearchConfig config)
         {
-            client.DefaultLanguage = config.Language; // not thread safe
+            client.DefaultLanguage = config.Language; // TODO: make thread safe
 
-            var searchContainer = await client.SearchMovieAsync(config.Query, includeAdult: config.AllowAdult);
+            var searchContainer = await client.SearchMovieAsync(config.Query,
+                includeAdult: config.AllowAdult);
 
             return searchContainer.Results
                 .Select(m => new MovieInfo(m, client))
@@ -37,7 +37,9 @@ namespace CinemaGuide.Api
             public string    OriginalTitle { get; }
             public Uri       PosterUrl     { get; }
             public DateTime? ReleaseDate   { get; }
+
             public int? Year => ReleaseDate?.Year;
+
             public MovieInfo(SearchMovie movie, TMDbClient client)
             {
                 client.GetConfig();
