@@ -289,3 +289,7 @@ __pycache__/
 
 # Security
 CinemaGuide/CinemaGuide/tokens.json
+
+# Bundles
+*.min.js
+*.min.css
