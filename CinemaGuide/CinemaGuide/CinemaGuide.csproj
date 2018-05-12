@@ -9,6 +9,7 @@
     <None Remove="wwwroot\NewFolder\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="TMDbLib" Version="1.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.6.375" />
