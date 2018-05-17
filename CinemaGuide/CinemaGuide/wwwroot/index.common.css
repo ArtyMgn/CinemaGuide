@@ -28,3 +28,11 @@
 
 @import '/common/shot/shot.css';
 @import '/common/shot/shot__img.css';
+
+@import '/common/login-form/login-form.css';
+@import '/common/login-form/login-form__button.css';
+@import '/common/login-form/login-form-container.css';
+@import '/common/login-form/login-form__title.css';
+@import '/common/login-form/login-form__input.css';
+@import '/common/login-form/field-validation-error.css';
+@import '/common/registration-form/registration-form.css';
