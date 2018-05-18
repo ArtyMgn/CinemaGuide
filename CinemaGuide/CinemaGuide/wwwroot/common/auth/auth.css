@@ -1,7 +1,7 @@
-﻿.login-form-container {
+﻿.auth {
+    align-items: center;
     display: flex;
-    width: 100%;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    width: 100%;
 }

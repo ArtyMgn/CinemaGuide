@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CinemaGuide.Models;
+using CinemaGuide.Models.Db;
 using CinemaGuide.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -19,7 +20,7 @@ namespace CinemaGuide.Controllers
         {
             this.context = context;
         }
-        
+
         [HttpGet]
         public IActionResult Login([FromServices] Profile profile)
         {
@@ -27,68 +28,86 @@ namespace CinemaGuide.Controllers
         }
 
         [HttpGet]
-        public IActionResult Registration([FromServices] Profile profile)
+        public IActionResult SignUp([FromServices] Profile profile)
         {
             return View(profile);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Registration([FromServices] Profile profile, DbProfile userProfile)
+        public async Task<IActionResult> SignUp([FromServices] Profile profile, DbProfile userProfile)
         {
-            var matchedUser = await context.Users.SingleOrDefaultAsync(user => user.Login == userProfile.User.Login);
-            if (matchedUser != null)
+            var dbUser = await TryGetUser(userProfile.User.Login);
+
+            if (dbUser != null)
             {
-                ModelState.AddModelError("UserCredentials.Login", "пользователь с таким логином уже существует");
+                ModelState.AddModelError("UserCredentials.Login",
+                    "Пользователь с таким логином уже существует");
                 profile.UserProfile = userProfile;
+
                 return View(profile);
             }
 
             var salt = PasswordEncryptor.GenerateSalt();
-            userProfile.Role = "user";
+
+            userProfile.Role      = "user";
             userProfile.User.Salt = Convert.ToBase64String(salt);
-            userProfile.User.HashedPassword = PasswordEncryptor.GenerateHash(userProfile.User.HashedPassword, salt);
+            userProfile.User.HashedPassword = PasswordEncryptor.GenerateHash(
+                userProfile.User.HashedPassword, salt); // TODO: fix
+
             context.Add(userProfile);
             context.SaveChanges();
 
             return RedirectToAction("Login", "Auth");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromServices] Profile profile, LoginModel userCredentials)
+        public async Task<IActionResult> Login([FromServices] Profile profile, Credentials credentials)
         {
-            var matchedUser = await context.Users.SingleOrDefaultAsync(user => user.Login == userCredentials.Login);
-            profile.UserCredentials = userCredentials;
-      
-            if (matchedUser == null)
+            var user = await TryGetUser(credentials.Login);
+
+            profile.UserCredentials = credentials;
+
+            if (user == null)
             {
-                ModelState.AddModelError("UserCredentials.Login", "пользователя с таким логином не существует");
+                ModelState.AddModelError("UserCredentials.Login",
+                    "Пользователя с таким логином не существует");
+
                 return View(profile);
             }
 
-            if (!PasswordEncryptor.IsEqualPasswords(matchedUser.HashedPassword, matchedUser.Salt, userCredentials.Password))
+            if (!PasswordEncryptor.IsEqualPasswords(user.HashedPassword, user.Salt, credentials.Password))
             {
-                ModelState.AddModelError("UserCredentials.Password", "неверный пароль");
+                ModelState.AddModelError("UserCredentials.Password", "Неверный пароль");
+
                 return View(profile);
             }
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, matchedUser.Id),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userCredentials.Login)
+                new Claim(ClaimTypes.NameIdentifier,           $"{user.Id}"),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, credentials.Login)
             };
 
-            var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(id));
 
             return RedirectToAction("Index", "Home");
+        }
+
+        private async Task<DbUser> TryGetUser(string login)
+        {
+            return await context.Users.SingleOrDefaultAsync(user => user.Login == login);
         }
     }
 }

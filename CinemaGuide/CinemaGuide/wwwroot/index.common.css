@@ -1,4 +1,12 @@
-﻿@import '/common/body/body.css';
+﻿@import '/common/auth/auth.css';
+@import '/common/auth/login/field-validation-error.css';
+@import '/common/auth/login/login.css';
+@import '/common/auth/login/login__button.css';
+@import '/common/auth/login/login__input.css';
+@import '/common/auth/login/login__title.css';
+@import '/common/auth/signup/signup.css';
+
+@import '/common/body/body.css';
 
 @import '/common/button/button-default.css';
 
@@ -47,11 +55,3 @@
 @import '/common/switcher/__item/switcher__item.css';
 @import '/common/switcher/switcher.css';
 @import '/common/switcher/switcher__radio.css';
-
-@import '/common/login-form/login-form.css';
-@import '/common/login-form/login-form__button.css';
-@import '/common/login-form/login-form-container.css';
-@import '/common/login-form/login-form__title.css';
-@import '/common/login-form/login-form__input.css';
-@import '/common/login-form/field-validation-error.css';
-@import '/common/registration-form/registration-form.css';

@@ -1,13 +1,13 @@
 ﻿@model Profile
 
 <div class="auth">
-    @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { @class = "login" }))
+    @using (Html.BeginForm("SignUp", "Auth", FormMethod.Post, new { @class = "signup" }))
     {
-        <h2 class="login__title">Авторизоваться</h2>
+        <h2 class="login__title">Создать учетную запись</h2>
 
-        @Html.Partial("Credentials")
+        @Html.Partial("UserProfile")
 
-        <input class="login__button" type="submit" value="Войти"/>
+        <input class="login__button" type="submit" value="Зарегестрироваться"/>
     }
 </div>
 

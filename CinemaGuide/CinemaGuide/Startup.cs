@@ -56,12 +56,12 @@ namespace CinemaGuide
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString));
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddMvc();
+            services.AddEntityFrameworkNpgsql()
+                .AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString))
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/auth/login");

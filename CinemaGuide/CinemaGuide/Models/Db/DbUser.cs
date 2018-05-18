@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CinemaGuide.Models
+namespace CinemaGuide.Models.Db
 {
     [Table("Users")]
     public class DbUser
     {
-        public string Id { get; set; }
+        public int       Id                { get; set; }
+        public int       ProfileForeignKey { get; set; }
+        public DbProfile Profile           { get; set; }
 
         [Required]
         public string Login { get; set; }
@@ -16,8 +18,5 @@ namespace CinemaGuide.Models
 
         [Required]
         public string Salt { get; set; }
-
-        public int       ProfileForeignKey { get; set; }
-        public DbProfile Profile           { get; set; }
     }
 }
