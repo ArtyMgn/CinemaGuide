@@ -12,11 +12,14 @@
         <link rel="stylesheet" href="/index.common.css"/>
         <script async src="/common/page/page-search/page-search.js"></script>
         <script async src="/common/switcher/__item/switcher__item.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="/index.common.min.css"/>
         <script async src="/index.common.min.js"></script>
     </environment>
+
+    @RenderSection("scripts", false)
 </head>
 <body>
 
@@ -26,13 +29,24 @@
     </h1>
 
     <div class="menu__actions">
-        @if (!Model.IsAuth)
+        @if (!User.Identity.IsAuthenticated)
         {
             <div class="menu__login">
-                <a class="link_header" href="/login">Регистрация</a>
+                <a class="link_header" href="/auth/registration">Регистрация</a>
+            </div>
+            <div class="menu__login">
+                <a class="link_header" href="/auth/login">Войти</a>
             </div>
         }
-
+        else
+        {
+            <div class="menu__login">
+                <a class="link_header" href="/profile">@User.Identity.Name</a>
+            </div>
+            <div class="menu__login">
+                <a class="link_header" href="/auth/logout">Выйти</a>
+            </div>
+        }
         <button class="menu__lang button-default" type="button">Язык</button>
     </div>
 </header>
