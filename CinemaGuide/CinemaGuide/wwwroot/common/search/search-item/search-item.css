@@ -1,10 +1,10 @@
 ﻿.search-item {
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
     display: grid;
-    margin-bottom: 30px;
-    grid-column-gap: 12px;
-    grid-template-rows: 3.4em auto;
-    grid-template-columns: 140px auto;
+    grid-column-gap: 20px;
     grid-template-areas: 'p t' 'p i';
-    border-bottom: 1px solid rgba(0,0,0,.3);
+    grid-template-columns: 140px auto;
+    grid-template-rows: 3.4em auto;
+    margin-bottom: 30px;
     padding-bottom: 30px;
 }

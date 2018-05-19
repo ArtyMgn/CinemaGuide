@@ -1,7 +1,7 @@
 ﻿.camera {
-    width: 10%;
-    height: 80px;
-    display: inline-block;
     background: url('/images/video-camera.svg') no-repeat 0 0;
     background-size: 80px;
+    display: inline-block;
+    height: 80px;
+    width: 10%;
 }

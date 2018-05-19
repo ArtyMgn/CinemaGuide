@@ -1,5 +1,5 @@
 ﻿.search-item__poster {
     grid-area: p;
-    text-align: center;
     height: 200px;
+    text-align: center;
 }

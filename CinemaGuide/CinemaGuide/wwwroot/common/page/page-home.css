@@ -1,4 +1,6 @@
 ﻿.page-home {
-    width: 100%;
+    margin: auto;
     margin-top: 40px;
+    min-width: 1024px;
+    width: 60%;
 }

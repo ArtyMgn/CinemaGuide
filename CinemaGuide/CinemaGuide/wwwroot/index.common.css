@@ -10,10 +10,17 @@
 @import '/common/footer/footer__contacts.css';
 @import '/common/footer/footer__year.css';
 
+@import '/common/form/form.css';
+@import '/common/form/field-validation-error.css';
+@import '/common/form/form__input.css';
+@import '/common/form/form__submit.css';
+@import '/common/form/form__title.css';
+
 @import '/common/link/link_header.css';
 @import '/common/link/link_footer.css';
 
 @import '/common/loader/loader.css';
+
 
 @import '/common/main/main.css';
 

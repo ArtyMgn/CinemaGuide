@@ -5,8 +5,11 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CinemaGuide.Api;
 using CinemaGuide.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,7 +28,7 @@ namespace CinemaGuide
             var builder = new ConfigurationBuilder().SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddEnvironmentVariables()
                 .AddJsonFile("tokens.json", true, true)
-                .AddJsonFile(settingsPath,  true, true);
+                .AddJsonFile(settingsPath, true, true);
 
             Configuration = builder.Build();
         }
@@ -48,13 +51,19 @@ namespace CinemaGuide
             }
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/"); });
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
             services.AddMvc();
+            services.AddEntityFrameworkNpgsql()
+                .AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString))
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => { options.LoginPath = new PathString("/auth/login"); });
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.Populate(services);
@@ -98,8 +107,8 @@ namespace CinemaGuide
 
         private void RegisterDefaultProfile(ContainerBuilder containerBuilder, List<Type> apiTypes)
         {
-            var profile              = new Profile { SourceList = apiTypes };
-            var profileType          = profile.GetType();
+            var profile = new Profile { SourceList = apiTypes };
+            var profileType = profile.GetType();
             var registrationsBuilder = containerBuilder.RegisterType(profileType);
 
             Configuration.GetSection("DefaultProfile").Bind(profile);
