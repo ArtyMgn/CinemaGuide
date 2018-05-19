@@ -34,27 +34,26 @@ namespace CinemaGuide.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromServices] Profile profile, DbProfile userProfile)
+        public async Task<IActionResult> SignUp([FromServices] Profile profile, User user)
         {
-            var dbUser = await TryGetUser(userProfile.User.Login);
+            var dbUser = await TryGetUser(user.Login);
 
             if (dbUser != null)
             {
                 ModelState.AddModelError("UserCredentials.Login",
                     "Пользователь с таким логином уже существует");
-                profile.UserProfile = userProfile;
+                profile.User = user;
 
                 return View(profile);
             }
 
             var salt = PasswordEncryptor.GenerateSalt();
 
-            userProfile.Role = "user";
-            userProfile.User.Salt = Convert.ToBase64String(salt);
-            userProfile.User.Password = PasswordEncryptor.GenerateHash(
-                userProfile.User.Password, salt); // TODO: fix
+            user.Role = "user";
+            user.Salt = Convert.ToBase64String(salt);
+            user.Password = PasswordEncryptor.GenerateHash(user.Password, salt);
 
-            context.Add(userProfile);
+            context.Add(user);
             context.SaveChanges();
 
             return RedirectToAction("Login", "Auth");
@@ -73,19 +72,18 @@ namespace CinemaGuide.Controllers
         {
             var user = await TryGetUser(credentials.Login);
 
-            profile.UserCredentials = credentials;
+            profile.Credentials = credentials;
 
             if (user == null)
             {
-                ModelState.AddModelError("UserCredentials.Login",
-                    "Пользователя с таким логином не существует");
+                ModelState.AddModelError("Credentials.Login", "Пользователя с таким логином не существует");
 
                 return View(profile);
             }
 
             if (!PasswordEncryptor.IsEqualPasswords(user.Password, user.Salt, credentials.Password))
             {
-                ModelState.AddModelError("UserCredentials.Password", "Неверный пароль");
+                ModelState.AddModelError("Credentials.Password", "Неверный пароль");
 
                 return View(profile);
             }
@@ -105,7 +103,7 @@ namespace CinemaGuide.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private async Task<DbUser> TryGetUser(string login)
+        private async Task<User> TryGetUser(string login)
         {
             return await context.Users.SingleOrDefaultAsync(user => user.Login == login);
         }

@@ -1,0 +1,26 @@
+﻿@model Profile
+
+@Html.EditorFor(x => x.User.Login,
+    new { htmlAttributes = new { placeholder = "Логин", @class = "form__input" } })
+
+@Html.ValidationMessageFor(x => x.User.Login)
+
+@Html.EditorFor(x => x.User.Name,
+    new { htmlAttributes = new { placeholder = "Имя", @class = "form__input" } })
+
+@Html.ValidationMessageFor(x => x.User.Name)
+
+@Html.EditorFor(x => x.User.Surname,
+    new { htmlAttributes = new { placeholder = "Фамилия", @class = "form__input" } })
+
+@Html.ValidationMessageFor(x => x.User.Surname)
+
+@Html.EditorFor(x => x.User.Email,
+    new { htmlAttributes = new { placeholder = "Email", @class = "form__input" } })
+
+@Html.ValidationMessageFor(x => x.User.Email)
+
+@Html.EditorFor(x => x.User.Password,
+    new { htmlAttributes = new { type = "password", placeholder = "Пароль", @class = "form__input" } })
+
+@Html.ValidationMessageFor(x => x.User.Password)

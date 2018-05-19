@@ -7,8 +7,8 @@ namespace CinemaGuide.Models
 {
     public class Profile
     {
-        public DbProfile UserProfile { get; set; }
-        public Credentials UserCredentials { get; set; }
+        public User User { get; set; }
+        public Credentials Credentials { get; set; }
         public SearchConfig SearchConfig { get; set; }
         public List<Type> SourceList { get; set; }
     }
