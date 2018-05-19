@@ -5,7 +5,7 @@ namespace CinemaGuide.Models
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<DbUser>    Users    { get; set; }
+        public DbSet<DbUser> Users { get; set; }
         public DbSet<DbProfile> Profiles { get; set; }
 
         public ApplicationContext(DbContextOptions options) : base(options)

@@ -14,10 +14,10 @@ namespace CinemaGuide.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy",
                             NpgsqlValueGenerationStrategy.SerialColumn),
-                    Age     = table.Column<int>(nullable: false),
-                    Email   = table.Column<string>(nullable: true),
-                    Name    = table.Column<string>(maxLength: 50, nullable: false),
-                    Role    = table.Column<string>(nullable: false),
+                    Age = table.Column<int>(nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Role = table.Column<string>(nullable: false),
                     Surname = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table => { table.PrimaryKey("PK_Profiles", x => x.Id); });
@@ -26,11 +26,11 @@ namespace CinemaGuide.Migrations
                 "Users",
                 table => new
                 {
-                    Id                = table.Column<string>(nullable: false),
-                    HashedPassword    = table.Column<string>(nullable: false),
-                    Login             = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    HashedPassword = table.Column<string>(nullable: false),
+                    Login = table.Column<string>(nullable: false),
                     ProfileForeignKey = table.Column<int>(nullable: false),
-                    Salt              = table.Column<string>(nullable: false)
+                    Salt = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

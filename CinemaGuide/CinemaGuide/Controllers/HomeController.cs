@@ -9,8 +9,7 @@ namespace CinemaGuide.Controllers
         {
             return View(profile);
         }
-
-        [Route("/error")]
+        
         public IActionResult Error()
         {
             return View();

@@ -8,6 +8,7 @@ using CinemaGuide.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +28,7 @@ namespace CinemaGuide
             var builder = new ConfigurationBuilder().SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddEnvironmentVariables()
                 .AddJsonFile("tokens.json", true, true)
-                .AddJsonFile(settingsPath,  true, true);
+                .AddJsonFile(settingsPath, true, true);
 
             Configuration = builder.Build();
         }
@@ -62,10 +63,7 @@ namespace CinemaGuide
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString))
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/form/login");
-                });
+                .AddCookie(options => { options.LoginPath = new PathString("/auth/login"); });
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.Populate(services);
@@ -109,8 +107,8 @@ namespace CinemaGuide
 
         private void RegisterDefaultProfile(ContainerBuilder containerBuilder, List<Type> apiTypes)
         {
-            var profile              = new Profile { SourceList = apiTypes };
-            var profileType          = profile.GetType();
+            var profile = new Profile { SourceList = apiTypes };
+            var profileType = profile.GetType();
             var registrationsBuilder = containerBuilder.RegisterType(profileType);
 
             Configuration.GetSection("DefaultProfile").Bind(profile);

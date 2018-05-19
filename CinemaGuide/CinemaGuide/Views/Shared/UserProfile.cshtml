@@ -20,7 +20,7 @@
 
 @Html.ValidationMessageFor(x => x.UserProfile.Email)
 
-@Html.EditorFor(x => x.UserProfile.User.HashedPassword,
+@Html.EditorFor(x => x.UserProfile.User.Password,
     new { htmlAttributes = new { type = "password", placeholder = "Пароль", @class = "form__input" } })
 
-@Html.ValidationMessageFor(x => x.UserProfile.User.HashedPassword)
+@Html.ValidationMessageFor(x => x.UserProfile.User.Password)

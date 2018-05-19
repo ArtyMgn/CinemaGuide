@@ -49,10 +49,10 @@ namespace CinemaGuide.Controllers
 
             var salt = PasswordEncryptor.GenerateSalt();
 
-            userProfile.Role      = "user";
+            userProfile.Role = "user";
             userProfile.User.Salt = Convert.ToBase64String(salt);
-            userProfile.User.HashedPassword = PasswordEncryptor.GenerateHash(
-                userProfile.User.HashedPassword, salt); // TODO: fix
+            userProfile.User.Password = PasswordEncryptor.GenerateHash(
+                userProfile.User.Password, salt); // TODO: fix
 
             context.Add(userProfile);
             context.SaveChanges();
@@ -83,7 +83,7 @@ namespace CinemaGuide.Controllers
                 return View(profile);
             }
 
-            if (!PasswordEncryptor.IsEqualPasswords(user.HashedPassword, user.Salt, credentials.Password))
+            if (!PasswordEncryptor.IsEqualPasswords(user.Password, user.Salt, credentials.Password))
             {
                 ModelState.AddModelError("UserCredentials.Password", "Неверный пароль");
 
@@ -92,7 +92,7 @@ namespace CinemaGuide.Controllers
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier,           $"{user.Id}"),
+                new Claim(ClaimTypes.NameIdentifier, $"{user.Id}"),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, credentials.Login)
             };
 

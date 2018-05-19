@@ -11,7 +11,7 @@ namespace CinemaGuide.Utils
 
         public static byte[] GenerateSalt(byte length = 64)
         {
-            var rng  = new RNGCryptoServiceProvider();
+            var rng = new RNGCryptoServiceProvider();
             var salt = new byte[length];
 
             rng.GetBytes(salt);
@@ -38,20 +38,19 @@ namespace CinemaGuide.Utils
             return Convert.ToBase64String(hashedPassword);
         }
 
-        public static bool IsEqualPasswords(string storedHashedPwd, string storedSalt, string clearTextPwd)
+        public static bool IsEqualPasswords(string bHashedPassword, string bSalt, string password)
         {
             try
             {
-                var originalHashedPwd    = Convert.FromBase64String(storedHashedPwd);
-                var userEnteredHashedPwd = Convert.FromBase64String(
-                    GenerateHash(clearTextPwd, Convert.FromBase64String(storedSalt)));
+                var hashedPassword = Convert.FromBase64String(bHashedPassword);
+                var bHashedUserPassword = GenerateHash(password, Convert.FromBase64String(bSalt));
+                var hashedUserPassword = Convert.FromBase64String(bHashedUserPassword);
 
-                
-                return userEnteredHashedPwd.SequenceEqual(originalHashedPwd);
+                return hashedUserPassword.SequenceEqual(hashedPassword);
             }
-            catch (ArgumentException ae)
+            catch (ArgumentException exception)
             {
-                Console.WriteLine(ae.Message);
+                Console.WriteLine(exception.Message);
                 return false;
             }
         }

@@ -1,14 +1,14 @@
 ﻿.search {
-    width: 80%;
-    height: 40px;
-    margin-top: 33px;
-    font-size: 1.8em;
+    align-items: center;
+    border: 2px solid dodgerblue;
     display: inline-flex;
     flex-wrap: nowrap;
+    font-size: 1.8em;
+    height: 40px;
     justify-content: space-between;
-    align-items: center;
+    margin-top: 33px;
     vertical-align: top;
-    border: 2px solid dodgerblue;
+    width: 80%;
 }
 
 .search:hover {

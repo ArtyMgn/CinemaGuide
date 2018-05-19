@@ -6,8 +6,8 @@ namespace CinemaGuide.Models.Db
     [Table("Profiles")]
     public class DbProfile
     {
-        public int    Id   { get; set; }
-        public int    Age  { get; set; }
+        public int Id { get; set; }
+        public int Age { get; set; }
         public string Role { get; set; }
         public DbUser User { get; set; }
 

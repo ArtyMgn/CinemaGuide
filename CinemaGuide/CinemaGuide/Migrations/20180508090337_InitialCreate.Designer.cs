@@ -51,7 +51,7 @@ namespace CinemaGuide.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("HashedPassword")
+                    b.Property<string>("Password")
                         .IsRequired();
 
                     b.Property<string>("Login")
