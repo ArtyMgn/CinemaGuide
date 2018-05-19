@@ -1,0 +1,10 @@
+﻿.form {
+    border-radius: 20px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .2), 0 4px 20px 0 rgba(0, 0, 0, .2);
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 60px;
+    min-width: 400px;
+    padding: 30px 60px;
+    width: 40%;
+}

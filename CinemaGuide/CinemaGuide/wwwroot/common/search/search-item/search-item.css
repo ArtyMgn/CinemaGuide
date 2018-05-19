@@ -1,7 +1,7 @@
 ﻿.search-item {
     display: grid;
     margin-bottom: 30px;
-    grid-column-gap: 12px;
+    grid-column-gap: 20px;
     grid-template-rows: 3.4em auto;
     grid-template-columns: 140px auto;
     grid-template-areas: 'p t' 'p i';

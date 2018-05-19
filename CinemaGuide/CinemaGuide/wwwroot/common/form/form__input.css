@@ -1,0 +1,9 @@
+﻿.form__input {
+    box-sizing: border-box;
+    display: block;
+    font-family: Futura, Arial, sans-serif;
+    font-size: 1.6em;
+    margin-bottom: 24px;
+    padding: 8px 24px;
+    width: 100%;
+}

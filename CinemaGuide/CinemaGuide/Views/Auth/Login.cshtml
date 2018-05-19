@@ -1,15 +1,13 @@
 ﻿@model Profile
 
-<div class="auth">
-    @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { @class = "login" }))
-    {
-        <h2 class="login__title">Авторизоваться</h2>
+@using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { @class = "form" }))
+{
+    <h2 class="form__title">Авторизоваться</h2>
 
-        @Html.Partial("Credentials")
+    @Html.Partial("Credentials")
 
-        <input class="login__button" type="submit" value="Войти"/>
-    }
-</div>
+    <button class="form__submit" type="submit">Войти</button>
+}
 
 @section scripts {
     <environment names="Development">

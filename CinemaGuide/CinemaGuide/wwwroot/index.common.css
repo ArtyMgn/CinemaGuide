@@ -1,12 +1,4 @@
-﻿@import '/common/auth/auth.css';
-@import '/common/auth/login/field-validation-error.css';
-@import '/common/auth/login/login.css';
-@import '/common/auth/login/login__button.css';
-@import '/common/auth/login/login__input.css';
-@import '/common/auth/login/login__title.css';
-@import '/common/auth/signup/signup.css';
-
-@import '/common/body/body.css';
+﻿@import '/common/body/body.css';
 
 @import '/common/button/button-default.css';
 
@@ -18,10 +10,17 @@
 @import '/common/footer/footer__contacts.css';
 @import '/common/footer/footer__year.css';
 
+@import '/common/form/form.css';
+@import '/common/form/field-validation-error.css';
+@import '/common/form/form__input.css';
+@import '/common/form/form__submit.css';
+@import '/common/form/form__title.css';
+
 @import '/common/link/link_header.css';
 @import '/common/link/link_footer.css';
 
 @import '/common/loader/loader.css';
+
 
 @import '/common/main/main.css';
 

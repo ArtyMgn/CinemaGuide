@@ -64,7 +64,7 @@ namespace CinemaGuide
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/auth/login");
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/form/login");
                 });
 
             var containerBuilder = new ContainerBuilder();

@@ -14,7 +14,18 @@ else
     {
         <div class="search-item">
             <div class="search-item__poster">
-                <img class="search-item__poster_image" src="@Html.Raw(movie.PosterUrl.AbsoluteUri)" alt="poster"/>
+                @if (movie.PosterUrl.IsAbsoluteUri)
+                {
+                    <img class="search-item__poster_image" src="@Html.Raw(movie.PosterUrl.AbsoluteUri)" alt="poster"/>
+                }
+                else
+                {
+                    <picture>
+                        <source srcset="/images/default-poster.webp" type="image/webp" />
+                        <source srcset="/images/default-poster.jpg" type="image/jpeg" />
+                        <img class="search-item__poster_image" src="/images/default-poster.jpg" alt="shot" />
+                    </picture>
+                }
             </div>
             <div class="search-item__title">@movie.Title</div>
             <div class="search-item__info">
