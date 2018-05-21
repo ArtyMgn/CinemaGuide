@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CinemaGuide.Api;
 using CinemaGuide.Models;
+using CinemaGuide.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,7 +59,7 @@ namespace CinemaGuide
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            
             services.AddMvc();
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString))
@@ -92,6 +93,11 @@ namespace CinemaGuide
             var tokens = new Dictionary<string, string>();
 
             Configuration.GetSection("Tokens").Bind(tokens);
+
+            containerBuilder.RegisterType<MailClient>()
+                .WithParameter("apiKey", tokens["SendGrid"])
+                .WithParameter("baseUrl", Configuration.GetConnectionString("BaseUrl"))
+                .SingleInstance();
 
             foreach (var type in apiTypes)
             {
