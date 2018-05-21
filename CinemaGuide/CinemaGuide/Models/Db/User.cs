@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CinemaGuide.Api;
 
 namespace CinemaGuide.Models.Db
 {
@@ -10,10 +12,12 @@ namespace CinemaGuide.Models.Db
         public int Age { get; set; }
         public string Role { get; set; }
         
+        [DisplayName("Имя")]
         [Required(ErrorMessage = "введите свое имя")]
         [StringLength(50, ErrorMessage = "Имя не дложно содержать более 50 символов")]
         public string Name { get; set; }
 
+        [DisplayName("Фамилия")]
         [Required(ErrorMessage = "введите свою фамилию")]
         [StringLength(50, ErrorMessage = "Фамилия не дложно содержать более 50 символов")]
         public string Surname { get; set; }
@@ -21,7 +25,8 @@ namespace CinemaGuide.Models.Db
         [Required(ErrorMessage = "введите Email")]
         [EmailAddress(ErrorMessage = "Некорректный Email")]
         public string Email { get; set; }
-
+        
+        [DisplayName("Логин")]
         [Required(ErrorMessage = "введите логин")]
         [StringLength(50, ErrorMessage = "логин не должен содержать более 50 символов")]
         public string Login { get; set; }

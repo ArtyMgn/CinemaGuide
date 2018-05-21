@@ -1,4 +1,5 @@
-﻿@model Profile
+﻿@using System.Security.Claims
+@model Profile
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,7 @@
         <link rel="stylesheet" href="/index.common.css"/>
         <script src="/common/page/page-search/page-search.js"></script>
         <script src="/common/switcher/__item/switcher__item.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="/index.common.min.css"/>
@@ -40,7 +42,8 @@
         else
         {
             <div class="menu__login">
-                <a class="link_header" href="/profile">@User.Identity.Name</a>
+                @{ var idClaim = @User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier); }
+                <a class="link_header" href="/users/@idClaim.Value">@User.Identity.Name</a>
             </div>
             <div class="menu__login">
                 <a class="link_header" href="/auth/logout">Выход</a>
