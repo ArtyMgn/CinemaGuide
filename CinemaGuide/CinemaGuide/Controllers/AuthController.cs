@@ -47,7 +47,7 @@ namespace CinemaGuide.Controllers
         {
            var user = await TryGetUser(login);
 
-            var validationResult = await ValidateToken(user, token);
+            var validationResult = ValidateToken(user, token);
             if (validationResult != null)
             {
                 return validationResult;
@@ -80,7 +80,7 @@ namespace CinemaGuide.Controllers
         {
             profile.User = await TryGetUser(login);
 
-            var validationResult = await ValidateToken(profile.User, token);
+            var validationResult = ValidateToken(profile.User, token);
             if (validationResult != null)
             {
                 return validationResult;
@@ -90,7 +90,7 @@ namespace CinemaGuide.Controllers
             return View(profile);
         }
 
-        private async Task<IActionResult> ValidateToken(User user, string token)
+        private IActionResult ValidateToken(User user, string token)
         {
             if (user == null)
             {
