@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace CinemaGuide.Utils
@@ -27,7 +28,7 @@ namespace CinemaGuide.Utils
                     $"Salt parameter {nameof(salt)} cannot be empty or null. " +
                     "This is a security violation.");
             }
-
+            
             var hashedPassword = KeyDerivation.Pbkdf2(
                 clearTextData,
                 salt,
@@ -52,6 +53,15 @@ namespace CinemaGuide.Utils
             {
                 Console.WriteLine(exception.Message);
                 return false;
+            }
+        }
+
+        public static string GenerateHash(string value)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(value));
+                return BitConverter.ToString(hash);
             }
         }
     }
