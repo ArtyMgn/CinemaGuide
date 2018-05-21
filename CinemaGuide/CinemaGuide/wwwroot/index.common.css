@@ -15,7 +15,7 @@
 @import '/common/form/form__input.css';
 @import '/common/form/form__submit.css';
 @import '/common/form/form__title.css';
-@import '/common/form/form__input-invisible.css';
+@import '/common/form/form__input_invisible.css';
 @import '/common/form/form__help.css';
 
 @import '/common/link/link_header.css';

@@ -45,18 +45,12 @@ namespace CinemaGuide.Controllers
         [HttpGet]
         public async Task<IActionResult> Confirm(string login, string token)
         {
-            var user = await TryGetUser(login);
+           var user = await TryGetUser(login);
 
-            if (user == null)
+            var validationResult = await ValidateToken(user, token);
+            if (validationResult != null)
             {
-                return NotFound();
-            }
-
-            var expectedToken = PasswordEncryptor.GenerateHash($"{user.Id}{login}");
-
-            if (expectedToken != token)
-            {
-                return Forbid();
+                return validationResult;
             }
 
             user.IsConfirmed = true;
@@ -84,23 +78,28 @@ namespace CinemaGuide.Controllers
         [HttpGet]
         public async Task<IActionResult> ResetPassword([FromServices] Profile profile, string login, string token)
         {
-            var user = await TryGetUser(login);
+            profile.User = await TryGetUser(login);
 
+            var validationResult = await ValidateToken(profile.User, token);
+            if (validationResult != null)
+            {
+                return validationResult;
+            }
+
+            profile.User.Password = string.Empty;
+            return View(profile);
+        }
+
+        private async Task<IActionResult> ValidateToken(User user, string token)
+        {
             if (user == null)
             {
                 return NotFound();
             }
 
-            var expectedToken = PasswordEncryptor.GenerateHash($"{user.Id}{login}");
+            var expectedToken = PasswordEncryptor.GenerateHash($"{user.Id}{user.Login}");
 
-            if (expectedToken != token)
-            {
-                return Forbid();
-            }
-
-            profile.User = user;
-            profile.User.Password = string.Empty;
-            return View(profile);
+            return expectedToken != token ? Forbid() : null;
         }
 
         [HttpPost]
@@ -123,7 +122,7 @@ namespace CinemaGuide.Controllers
         {
             if (await context.Users.AnyAsync(x => x.Email == user.Email))
             {
-                ModelState.AddModelError("User.Email", "к этой почте уже привязан существующий пользователь");
+                ModelState.AddModelError("User.Email", "К этой почте уже привязан существующий пользователь");
                 return View(profile);
             }
 
@@ -176,7 +175,7 @@ namespace CinemaGuide.Controllers
 
             if (!user.IsConfirmed)
             {
-                ModelState.AddModelError("Credentials.Login", "учетная запись не подтверждена");
+                ModelState.AddModelError("Credentials.Login", "Учетная запись не подтверждена");
                 return View(profile);
             }
 

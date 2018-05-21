@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using CinemaGuide.Models.Db;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Routing;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
@@ -13,6 +12,7 @@ namespace CinemaGuide.Utils
         private readonly SendGridClient sendGridClient;
         private readonly EmailAddress senderEmailAddress;
         private readonly string baseUrl;
+
         public MailClient(string apiKey, string baseUrl, string senderEmail="sinemaguide@support.com")
         {
             this.baseUrl = baseUrl;
@@ -46,7 +46,7 @@ namespace CinemaGuide.Utils
         {
             var subject = "Добро пожаловать в CinemaGuide";
             var to = new EmailAddress(user.Email);
-            var greetingMessage = $"Добро пожаловать в CinemaGuide, {user.Login}! Мы рады, что ты теперь с нами :)";
+            var greetingMessage = $"Добро пожаловать в CinemaGuide, {user.Login}! Мы рады, что вы теперь с нами :)";
             var message = MailHelper.CreateSingleEmail(senderEmailAddress, to, subject, greetingMessage, "");
             return await sendGridClient.SendEmailAsync(message);
         }
