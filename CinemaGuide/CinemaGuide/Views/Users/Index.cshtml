@@ -1,8 +1,10 @@
 ﻿@model Profile
-    
-<div class="profile">
-    <p> @Html.DisplayNameFor(x => x.User.Login): @Html.DisplayFor(x => x.User.Login)</p>
-    <p> @Html.DisplayNameFor(x => x.User.Name): @Html.DisplayFor(x => x.User.Name)</p>
-    <p> @Html.DisplayNameFor(x => x.User.Surname): @Html.DisplayFor(x => x.User.Surname)</p>
-    <p> @Html.DisplayNameFor(x => x.User.Email): @Html.DisplayFor(x => x.User.Email)</p>
+<div class="form">
+    <h2 class="form__title">Профиль</h2>
+    <div class="profile">
+        <p> @Html.DisplayNameFor(x => x.User.Login): @Html.DisplayFor(x => x.User.Login)</p>
+        <p> @Html.DisplayNameFor(x => x.User.Name): @Html.DisplayFor(x => x.User.Name)</p>
+        <p> @Html.DisplayNameFor(x => x.User.Surname): @Html.DisplayFor(x => x.User.Surname)</p>
+        <p> @Html.DisplayNameFor(x => x.User.Email): @Html.DisplayFor(x => x.User.Email)</p>
+    </div>
 </div>
