@@ -24,3 +24,8 @@
     new { htmlAttributes = new { type = "password", placeholder = "Пароль", @class = "form__input" } })
 
 @Html.ValidationMessageFor(x => x.User.Password)
+
+@Html.EditorFor(x => x.User.ConfirmPassword,
+    new { htmlAttributes = new { type = "password", placeholder = "повторите пароль", @class = "form__input" } })
+
+@Html.ValidationMessageFor(x => x.User.ConfirmPassword)
